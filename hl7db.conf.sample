@@ -1,0 +1,74 @@
+# HL7DB Configuration File
+# Copy this file to hl7db.conf and customize for your environment
+
+[server]
+# Network settings
+port = 7777
+bind_address = 0.0.0.0
+max_connections = 1000
+worker_threads = 4
+
+# Timeouts (seconds)
+query_timeout = 30
+connection_timeout = 300
+
+[storage]
+# Data directory for message persistence
+data_directory = ./data/channels
+
+# Storage limits
+max_channel_size = 1000000
+max_message_size = 1048576
+
+# Archival settings
+auto_archive = false
+archive_after_days = 90
+archive_directory = ./data/archive
+
+[index]
+# Indexing configuration
+enable_indexes = true
+indexed_fields = PID-3,MSH-9,MSH-3,MSH-10,PV1-19,MSH-7
+
+# Dynamic indexing (create indexes on-demand)
+enable_dynamic_indexes = false
+
+[security]
+# Authentication & Authorization
+require_auth = false
+session_timeout_minutes = 30
+max_login_attempts = 5
+lockout_duration_minutes = 15
+
+# Audit logging
+enable_audit_log = true
+audit_log_path = ./data/audit.log
+audit_log_rotation_size_mb = 100
+
+# PHI Redaction (for logs)
+redact_phi_in_logs = true
+redaction_mode = partial
+
+[logging]
+# Application logging
+log_level = INFO
+log_file = ./data/hl7db.log
+log_to_console = true
+
+# Log rotation
+log_rotation_size_mb = 100
+log_retention_days = 30
+
+[performance]
+# Query optimization
+enable_query_cache = false
+query_cache_size_mb = 256
+query_cache_ttl_seconds = 300
+
+# Memory limits
+max_memory_mb = 2048
+enable_memory_pressure_handling = true
+
+# Performance monitoring
+enable_metrics = true
+metrics_port = 9090
